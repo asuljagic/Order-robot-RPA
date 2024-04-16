@@ -34,9 +34,8 @@ def open_robot_order_website():
     page.click('text=OK')
 
 def get_orders():
-    """Downloads the orders file and reads the orders from the file"""
+    """Downloads the orders file and returns the orders from the file"""
     download_orders_file()
-    fill_form_with_csv_data()
     return Tables().read_table_from_csv("orders.csv")
 
 def download_orders_file():
@@ -89,13 +88,6 @@ def store_receipt_as_pdf(order_number):
     pdf_path = "output/receipts/{0}.pdf".format(order_number)
     pdf.html_to_pdf(order_receipt_html, pdf_path)
     return pdf_path
-
-def fill_form_with_csv_data():
-    """Read data from csv and fill in the robot order form"""
-    csv_file = Tables()
-    robot_orders = csv_file.read_table_from_csv("orders.csv")
-    for order in robot_orders:
-        fill_and_submit_robot_data(order)
           
 def screenshot_robot(order_number):
     """Takes screenshot of the ordered bot image"""
